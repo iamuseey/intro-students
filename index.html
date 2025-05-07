@@ -1,63 +1,203 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Student Intro | FUGUS</title>
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --fugus-yellow: #FFD700;
+      --fugus-green: #008000;
+      --fugus-red: #FF0000;
+      --fugus-blue: #1E90FF;
+      --fugus-black: #000000;
+      --fugus-white: #FFFFFF;
+      --background-light: #f4f6f8;
+      --text-dark: #1a1a1a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: var(--background-light);
+      color: var(--text-dark);
+    }
+
+    header {
+      background-color: var(--fugus-white);
+      border-bottom: 2px solid var(--fugus-green);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      height: 60px;
+    }
+
+    .header-text {
+      flex-grow: 1;
+      margin-left: 1.5rem;
+    }
+
+    .header-text h1 {
+      font-size: 1.8rem;
+      color: var(--fugus-green);
+    }
+
+    .header-text p {
+      font-size: 1rem;
+      color: var(--fugus-blue);
+    }
+
+    nav ul.menu {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    nav ul.menu li a {
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--fugus-yellow);
+    }
+
+    nav ul.menu li a:hover {
+      color: var(--fugus-red);
+    }
+
+    main {
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .form-section {
+      background: var(--fugus-white);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .form-section h2 {
+      margin-bottom: 1.5rem;
+      color: var(--fugus-green);
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      background-color: var(--fugus-yellow);
+      color: var(--fugus-black);
+      padding: 0.8rem 1.6rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: var(--fugus-red);
+      color: var(--fugus-white);
+    }
+
+    footer {
+      text-align: center;
+      background-color: var(--fugus-green);
+      color: var(--fugus-white);
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
 </head>
 <body>
   <header>
     <img src="https://i.imgur.com/CCOFvS3.png" alt="FUGUS Logo" class="logo" />
-    <h1>Federal University Gusau</h1>
-    <p>Department of Computer Science - 100 Level</p>
+    <div class="header-text">
+      <h1>Federal University Gusau</h1>
+      <p>Department of Computer Science - 100 Level</p>
+    </div>
     <nav>
       <ul class="menu">
         <li><a href="#">Home</a></li>
         <li><a href="#">Check Exam Results</a></li>
         <li><a href="#">Lecture Timetable</a></li>
-        <!-- Future menu items can be added here -->
       </ul>
     </nav>
-  </header>  <main>
+  </header>
+  <main>
     <section class="form-section">
       <h2>Introduce Yourself</h2>
       <form>
         <label for="name">Full Name:</label>
-        <input type="text" id="name" name="name" placeholder="e.g. Usman Ibrahim" required /><label for="whatsapp">WhatsApp Number:</label>
-    <input type="tel" id="whatsapp" name="whatsapp" placeholder="e.g. +234xxxxxxxxxx" required />
+        <input type="text" id="name" name="name" placeholder="e.g. Usman Ibrahim" required />
 
-    <label for="state">State of Origin:</label>
-    <select id="state" name="state" required>
-      <option value="">Select your state</option>
-      <option value="Zamfara">Zamfara</option>
-      <option value="Kano">Kano</option>
-      <option value="Lagos">Lagos</option>
-      <option value="Kaduna">Kaduna</option>
-      <option value="Katsina">Katsina</option>
-      <option value="Borno">Borno</option>
-      <option value="Sokoto">Sokoto</option>
-      <option value="Yobe">Yobe</option>
-      <option value="FCT">FCT</option>
-      <!-- Add all 36 states -->
-    </select>
+        <label for="whatsapp">WhatsApp Number:</label>
+        <input type="tel" id="whatsapp" name="whatsapp" placeholder="e.g. +234xxxxxxxxxx" required />
 
-    <label for="lga">Local Government Area:</label>
-    <input type="text" id="lga" name="lga" placeholder="Enter your LGA" required />
+        <label for="state">State of Origin:</label>
+        <select id="state" name="state" required>
+          <option value="">Select your state</option>
+          <option value="Zamfara">Zamfara</option>
+          <option value="Kano">Kano</option>
+          <option value="Lagos">Lagos</option>
+          <option value="Kaduna">Kaduna</option>
+          <option value="Katsina">Katsina</option>
+          <option value="Borno">Borno</option>
+          <option value="Sokoto">Sokoto</option>
+          <option value="Yobe">Yobe</option>
+          <option value="FCT">FCT</option>
+        </select>
 
-    <label for="hobbies">Hobbies:</label>
-    <input type="text" id="hobbies" name="hobbies" placeholder="e.g. Coding, football, music" />
+        <label for="lga">Local Government Area:</label>
+        <input type="text" id="lga" name="lga" placeholder="Enter your LGA" required />
 
-    <label for="lecturer">Who is your favorite lecturer so far?</label>
-    <input type="text" id="lecturer" name="lecturer" placeholder="e.g. Dr. Musa" />
+        <label for="hobbies">Hobbies:</label>
+        <input type="text" id="hobbies" name="hobbies" placeholder="e.g. Coding, football, music" />
 
-    <label for="about">Something About You:</label>
-    <textarea id="about" name="about" rows="4" placeholder="Write a short intro..." required></textarea>
+        <label for="lecturer">Who is your favorite lecturer so far?</label>
+        <input type="text" id="lecturer" name="lecturer" placeholder="e.g. Dr. Musa" />
 
-    <button type="submit">Submit</button>
-  </form>
-</section>
+        <label for="about">Something About You:</label>
+        <textarea id="about" name="about" rows="4" placeholder="Write a short intro..." required></textarea>
 
-  </main>  <footer>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+  </main>
+  <footer>
     <p>© 2025 FUGUS Computer Science 100L | Designed by Useey Gusau</p>
   </footer>
 </body>

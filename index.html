@@ -8,22 +8,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      /* Primary Brand Colors (Keep these for identity) */
-      --fugus-green: #008000; /* Main brand color */
-      --fugus-yellow: #FFD700; /* Accent color */
-
-      /* Supporting & Neutral Colors (for a modern feel) */
+      --fugus-green: #008000;
+      --fugus-yellow: #FFD700;
       --primary-accent: var(--fugus-green);
       --secondary-accent: var(--fugus-yellow);
-      --text-primary: #2d3748; /* Darker gray for text */
-      --text-secondary: #4a5568; /* Lighter gray for secondary text */
-      --background-light: #f7fafc; /* Very light gray for body background */
-      --background-card: #ffffff; /* White for cards/sections */
-      --border-light: #e2e8f0; /* Light gray for borders */
-      --shadow-color: rgba(0, 0, 0, 0.1); /* Softer shadow */
-      --hover-primary: #006400; /* Darker green for hover */
-      --hover-secondary: #e6c300; /* Darker yellow for hover */
-      --danger-color: #e53e3e; /* For potential error messages */
+      --text-primary: #2d3748;
+      --text-secondary: #4a5568;
+      --background-light: #f7fafc;
+      --background-card: #ffffff;
+      --border-light: #e2e8f0;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --hover-primary: #006400;
+      --danger-color: #e53e3e;
     }
 
     * {
@@ -37,15 +33,18 @@
     }
 
     body {
-      font-family: 'Inter', sans-serif; /* Primary font */
+      font-family: 'Inter', sans-serif;
       background-color: var(--background-light);
       color: var(--text-primary);
       line-height: 1.6;
-      font-size: 16px; /* Base font size */
+      font-size: 16px;
+      /* Add padding-top to prevent content from being hidden by fixed header */
+      /* This value should be roughly the height of your header */
+      /* We will calculate this dynamically or set a fixed value later */
     }
 
     h1, h2, h3, h4, h5, h6 {
-      font-family: 'Poppins', sans-serif; /* Heading font */
+      font-family: 'Poppins', sans-serif;
       color: var(--primary-accent);
       margin-bottom: 0.75em;
       line-height: 1.3;
@@ -54,78 +53,145 @@
     header {
       background-color: var(--background-card);
       border-bottom: 3px solid var(--primary-accent);
-      padding: 1rem 2rem;
+      padding: 0.75rem 2rem; /* Adjusted padding */
       display: flex;
       align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-      position: sticky;
+      /* Make header fixed */
+      position: fixed; /* Changed from sticky to fixed for guaranteed top position */
       top: 0;
+      left: 0;
+      right: 0;
       z-index: 1000;
       box-shadow: 0 2px 10px var(--shadow-color);
+      min-height: 70px; /* Example: give it a min-height */
+    }
+
+    .header-content {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
     }
 
     .logo {
-      height: 50px; /* Slightly smaller for a sleeker look */
+      height: 45px; /* Slightly smaller for a more compact fixed header */
       transition: transform 0.3s ease;
+      margin-right: 1rem;
     }
     .logo:hover {
       transform: scale(1.05);
     }
 
     .header-text {
-      flex-grow: 1;
-      margin-left: 1.5rem;
-      margin-right: 1rem; /* Added for spacing before nav */
+      /* flex-grow: 1; Removed, let nav take space */
+      margin-left: 0; /* Adjusted */
     }
 
     .header-text h1 {
-      font-size: 1.6rem; /* Slightly adjusted */
+      font-size: 1.4rem; /* Adjusted */
       color: var(--primary-accent);
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.1rem;
     }
 
     .header-text p {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color: var(--text-secondary);
+    }
+
+    /* Navigation Menu Styles */
+    nav {
+        margin-left: auto; /* Pushes nav to the right */
     }
 
     nav ul.menu {
       display: flex;
       list-style: none;
-      gap: 1rem; /* Slightly reduced gap */
-      margin: 0; /* Removed default margin */
+      gap: 0.5rem; /* Reduced gap for more items */
+      margin: 0;
     }
 
     nav ul.menu li a {
       text-decoration: none;
       font-weight: 600;
-      color: var(--text-primary); /* More readable */
+      color: var(--text-primary);
       padding: 0.5rem 0.75rem;
       border-radius: 6px;
       transition: color 0.3s ease, background-color 0.3s ease;
+      display: block; /* For better padding application */
     }
 
     nav ul.menu li a:hover,
-    nav ul.menu li a:focus { /* Added focus state for accessibility */
+    nav ul.menu li a:focus {
       color: var(--background-card);
       background-color: var(--primary-accent);
     }
 
+    /* Hamburger Menu Button */
+    .menu-toggle {
+      display: none; /* Hidden by default on larger screens */
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      margin-left: 1rem; /* Space from header text if on same line */
+    }
+
+    .menu-toggle .hamburger-icon {
+      width: 28px;
+      height: 3px;
+      background-color: var(--text-primary);
+      display: block;
+      position: relative;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .menu-toggle .hamburger-icon::before,
+    .menu-toggle .hamburger-icon::after {
+      content: '';
+      width: 100%;
+      height: 3px;
+      background-color: var(--text-primary);
+      display: block;
+      position: absolute;
+      transition: transform 0.3s ease-in-out, top 0.3s ease-in-out;
+    }
+
+    .menu-toggle .hamburger-icon::before {
+      top: -8px;
+    }
+
+    .menu-toggle .hamburger-icon::after {
+      top: 8px;
+    }
+
+    /* Hamburger Menu Open State (X icon) */
+    .menu-toggle.open .hamburger-icon {
+      background-color: transparent; /* Middle line disappears */
+    }
+    .menu-toggle.open .hamburger-icon::before {
+      transform: rotate(45deg);
+      top: 0;
+    }
+    .menu-toggle.open .hamburger-icon::after {
+      transform: rotate(-45deg);
+      top: 0;
+    }
+
     main {
-      padding: 2rem;
+      /* padding: 2rem; original padding */
+      padding: calc(70px + 2rem) 2rem 2rem 2rem; /* Top padding = header height + desired space */
       display: flex;
       justify-content: center;
-      align-items: flex-start; /* Align items to the top if content height varies */
-      min-height: calc(100vh - 150px); /* Approximate height of header + footer */
+      align-items: flex-start;
+      min-height: calc(100vh - 150px);
     }
 
     .form-section {
       background: var(--background-card);
-      padding: 2.5rem; /* Increased padding */
+      padding: 2.5rem;
       border-radius: 12px;
-      box-shadow: 0 10px 30px var(--shadow-color); /* Softer, more spread shadow */
-      max-width: 700px; /* Slightly wider */
+      box-shadow: 0 10px 30px var(--shadow-color);
+      max-width: 700px;
       width: 100%;
     }
 
@@ -139,7 +205,7 @@
     label {
       display: block;
       margin-top: 1.25rem;
-      margin-bottom: 0.5rem; /* Space between label and input */
+      margin-bottom: 0.5rem;
       font-weight: 600;
       color: var(--text-primary);
       font-size: 0.9rem;
@@ -150,10 +216,10 @@
     select,
     textarea {
       width: 100%;
-      padding: 0.85rem 1rem; /* More padding inside inputs */
+      padding: 0.85rem 1rem;
       margin-top: 0.25rem;
       border: 1px solid var(--border-light);
-      border-radius: 8px; /* More rounded */
+      border-radius: 8px;
       font-size: 1rem;
       font-family: 'Inter', sans-serif;
       color: var(--text-primary);
@@ -167,20 +233,20 @@
     textarea:focus {
       outline: none;
       border-color: var(--primary-accent);
-      box-shadow: 0 0 0 3px rgba(0, 128, 0, 0.2); /* Focus ring with brand color */
+      box-shadow: 0 0 0 3px rgba(0, 128, 0, 0.2);
     }
 
     select {
-      appearance: none; /* Allows custom arrow */
+      appearance: none;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%234A5568' class='bi bi-chevron-down' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 1rem center;
-      padding-right: 2.5rem; /* Space for the arrow */
+      padding-right: 2.5rem;
     }
 
     textarea {
-      min-height: 120px; /* Ensure textarea has enough space */
-      resize: vertical; /* Allow vertical resize only */
+      min-height: 120px;
+      resize: vertical;
     }
 
     button[type="submit"] {
@@ -192,18 +258,18 @@
       border-radius: 8px;
       font-size: 1rem;
       cursor: pointer;
-      font-weight: 600; /* Changed from bold */
+      font-weight: 600;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      display: block; /* Make button block level */
-      width: 100%; /* Make button full width */
+      display: block;
+      width: 100%;
       transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
     button[type="submit"]:hover,
     button[type="submit"]:focus {
       background-color: var(--hover-primary);
-      transform: translateY(-2px); /* Subtle lift effect */
+      transform: translateY(-2px);
       box-shadow: 0 4px 15px rgba(0, 128, 0, 0.2);
     }
 
@@ -219,42 +285,67 @@
       font-size: 0.9rem;
     }
 
-    /* Responsive Adjustments */
+    /* Responsive Adjustments for Header and Menu */
     @media (max-width: 768px) {
       header {
-        padding: 1rem;
-        flex-direction: column; /* Stack header items */
-        align-items: flex-start;
-      }
-      .header-text {
-        margin-left: 0;
-        margin-top: 0.5rem;
-        margin-bottom: 1rem;
-        text-align: center; /* Center text on small screens */
-        width: 100%;
+        padding: 0.75rem 1rem; /* Reduce padding on smaller screens */
+        flex-wrap: nowrap; /* Prevent wrapping of logo/text and menu button */
       }
       .header-text h1 {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
       }
       .header-text p {
-        font-size: 0.85rem;
+        font-size: 0.75rem;
       }
+
+      .menu-toggle {
+        display: block; /* Show hamburger button */
+      }
+
+      nav {
+        /* Position the nav for mobile dropdown */
+        position: absolute;
+        top: 100%; /* Position below the header */
+        left: 0;
+        right: 0;
+        background-color: var(--background-card);
+        box-shadow: 0 5px 10px var(--shadow-color);
+        /* Hide menu by default, control with JS */
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out;
+      }
+
+      nav.menu-open { /* Class to show the menu */
+        max-height: 500px; /* Or a sufficiently large value to show all items */
+      }
+
       nav ul.menu {
-        flex-direction: column; /* Stack nav items */
+        flex-direction: column; /* Stack menu items vertically */
         width: 100%;
-        gap: 0.5rem;
-        align-items: center;
+        gap: 0; /* Remove gap, use padding on items */
+        padding: 0.5rem 0; /* Padding for the dropdown container */
       }
-      nav ul.menu li {
-        width: 100%;
-        text-align: center;
-      }
+
       nav ul.menu li a {
-        display: block; /* Make links full width for easier tapping */
-        padding: 0.75rem;
+        padding: 0.8rem 1.5rem; /* Adjust padding for vertical items */
+        border-radius: 0; /* No border radius for full-width items */
+        border-bottom: 1px solid var(--border-light); /* Separator */
       }
+      nav ul.menu li:last-child a {
+        border-bottom: none;
+      }
+      nav ul.menu li a:hover,
+      nav ul.menu li a:focus {
+        background-color: var(--primary-accent);
+        color: var(--background-card);
+      }
+
       main {
-        padding: 1rem;
+        /* Adjust padding-top based on actual header height at this breakpoint if it changes */
+        padding-top: calc(60px + 1.5rem); /* Example: if header is slightly shorter */
+        padding-left: 1rem;
+        padding-right: 1rem;
       }
       .form-section {
         padding: 1.5rem;
@@ -269,7 +360,7 @@
         font-size: 15px;
       }
       .header-text h1 {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
       }
       .form-section h2 {
         font-size: 1.5rem;
@@ -277,29 +368,41 @@
       button[type="submit"] {
         padding: 0.8rem 1.5rem;
       }
+      main {
+        padding-top: calc(55px + 1rem); /* Example: if header is even shorter */
+      }
     }
 
   </style>
 </head>
 <body>
-  <header>
-    <img src="https://i.imgur.com/CCOFvS3.png" alt="FUGUS Logo" class="logo" />
-    <div class="header-text">
-      <h1>Federal University Gusau</h1>
-      <p>Department of Computer Science - 100 Level Portal</p> <!-- Slightly rephrased -->
+  <header id="pageHeader"> <!-- Added ID for JS height calculation -->
+    <div class="header-content"> <!-- Wrapper for logo and text -->
+        <img src="https://i.imgur.com/CCOFvS3.png" alt="FUGUS Logo" class="logo" />
+        <div class="header-text">
+            <h1>Federal University Gusau</h1>
+            <p>CS 100L Portal</p> <!-- Shorter for mobile */
+        </div>
     </div>
-    <nav>
+    <button class="menu-toggle" id="menuToggleButton" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNavMenu">
+        <span class="hamburger-icon"></span>
+    </button>
+    <nav id="mainNavMenu">
       <ul class="menu">
         <li><a href="#">Home</a></li>
-        <li><a href="#">Exam Results</a></li> <!-- More concise -->
-        <li><a href="#">Timetable</a></li> <!-- More concise -->
+        <li><a href="#">Exam Results</a></li>
+        <li><a href="#">Timetable</a></li>
+        <!-- Add more links if needed -->
+        <!-- <li><a href="#">Courses</a></li> -->
+        <!-- <li><a href="#">Profile</a></li> -->
       </ul>
     </nav>
   </header>
+
   <main>
     <section class="form-section">
-      <h2>Student Introduction</h2> <!-- More engaging title -->
-      <form id="introForm"> <!-- Added ID for potential JS interaction -->
+      <h2>Student Introduction</h2>
+      <form id="introForm">
         <label for="name">Full Name:</label>
         <input type="text" id="name" name="name" placeholder="e.g. Usman Ibrahim" required />
 
@@ -308,7 +411,7 @@
 
         <label for="state">State of Origin:</label>
         <select id="state" name="state" required>
-          <option value="" disabled selected>Select your state</option> <!-- Disabled default option -->
+          <option value="" disabled selected>Select your state</option>
           <option value="Abia">Abia</option>
           <option value="Adamawa">Adamawa</option>
           <option value="Akwa Ibom">Akwa Ibom</option>
@@ -351,13 +454,13 @@
         <label for="lga">Local Government Area:</label>
         <input type="text" id="lga" name="lga" placeholder="Enter your LGA" required />
 
-        <label for="hobbies">Hobbies (comma separated):</label> <!-- Added instruction -->
+        <label for="hobbies">Hobbies (comma separated):</label>
         <input type="text" id="hobbies" name="hobbies" placeholder="e.g. Coding, football, reading" />
 
-        <label for="lecturer">Favorite Lecturer (so far):</label> <!-- Friendlier tone -->
+        <label for="lecturer">Favorite Lecturer (so far):</label>
         <input type="text" id="lecturer" name="lecturer" placeholder="e.g. Dr. Sama'ila" />
 
-        <label for="about">Tell Us Something About You:</label> <!-- More inviting -->
+        <label for="about">Tell Us Something About You:</label>
         <textarea id="about" name="about" rows="5" placeholder="Share a short, interesting fact or goal..." required></textarea>
 
         <button type="submit">Submit Introduction</button>
@@ -369,8 +472,41 @@
   </footer>
 
   <script>
-    // Simple script to update the year dynamically
+    // Update copyright year
     document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Hamburger Menu Toggle
+    const menuToggleButton = document.getElementById('menuToggleButton');
+    const mainNavMenu = document.getElementById('mainNavMenu');
+    const pageHeader = document.getElementById('pageHeader'); // Get the header element
+    const mainContent = document.querySelector('main'); // Get the main content element
+
+    function setMainContentPadding() {
+        const headerHeight = pageHeader.offsetHeight;
+        mainContent.style.paddingTop = `calc(${headerHeight}px + 2rem)`; // 2rem is your original desired spacing
+        // Also adjust for different breakpoints if header height changes significantly
+        if (window.innerWidth <= 768 && window.innerWidth > 480) {
+             mainContent.style.paddingTop = `calc(${headerHeight}px + 1.5rem)`;
+        } else if (window.innerWidth <= 480) {
+             mainContent.style.paddingTop = `calc(${headerHeight}px + 1rem)`;
+        }
+    }
+
+    if (menuToggleButton && mainNavMenu && pageHeader && mainContent) {
+      menuToggleButton.addEventListener('click', () => {
+        mainNavMenu.classList.toggle('menu-open');
+        menuToggleButton.classList.toggle('open');
+        const isExpanded = mainNavMenu.classList.contains('menu-open');
+        menuToggleButton.setAttribute('aria-expanded', isExpanded);
+      });
+
+      // Set initial padding and on resize
+      setMainContentPadding();
+      window.addEventListener('resize', setMainContentPadding);
+    } else {
+        console.error("Header, menu toggle, main nav or main content element not found!");
+    }
+
   </script>
 </body>
 </html>
